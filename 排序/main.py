@@ -94,6 +94,35 @@ class MergeSort:
         return self._sort(arr)
 
 
+class HeapSort:
+
+    def _heapify(self, arr, length, last):
+        largest = last
+        left = last * 2 + 1
+        right = last * 2 + 2
+        if left < length and arr[left] > arr[largest]:
+            largest = left
+        if right < length and arr[right] > arr[largest]:
+            largest = right
+        if largest != last:
+            arr[largest], arr[last] = arr[last], arr[largest]
+            self._heapify(arr, length, largest)
+
+    def _sort(self, arr):
+        length = len(arr)
+        if length <= 1:
+            return arr
+        for i in range(int(length/2)-1, -1, -1):
+            self._heapify(arr, length, i)
+        for i in range(length-1, 0, -1):
+            arr[0], arr[i] = arr[i], arr[0]
+            self._heapify(arr, i, 0)
+        return arr
+
+    def __call__(self, arr):
+        return self._sort(arr)
+
+
 if __name__ == '__main__':
 
     arrs = [[random.randint(0, 100) for i in range(10)]for i in range(1)]
@@ -107,6 +136,7 @@ if __name__ == '__main__':
         print('    shell sort:', shell_sort(arr[:]))
         print('    quick sort:', quick_sort(arr[:]))
         print('    merge sort:', MergeSort()(arr[:]))
+        print('     heap sort:', HeapSort()(arr[:]))
         sorted_arr = sorted(arr)
         assert insertion_sort(arr[:]) == sorted_arr
         assert quick_sort(arr[:]) == sorted_arr
