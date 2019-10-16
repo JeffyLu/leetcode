@@ -12,23 +12,21 @@ class TreeNode:
 class Solution:
 
     def Print(self, pRoot):
-        nodes = [pRoot]
-        reverse = False
+        if pRoot is None:
+            return []
+        tmp = [pRoot]
         res = []
-        while nodes:
-            tmp = nodes
-            nodes = []
-            for i in tmp:
-                if not i:
-                    continue
-                nodes.append(i.left)
-                nodes.append(i.right)
-            tmp = [t.val for t in tmp if t]
-            if not tmp:
-                break
-            if reverse:
-                res.append(list(reversed(tmp)))
-            else:
-                res.append(tmp)
+        reverse = False
+        while tmp:
+            level_nodes = tmp
+            tmp = []
+            vals = []
+            for n in level_nodes:
+                vals.append(n.val)
+                if n.left is not None:
+                    tmp.append(n.left)
+                if n.right is not None:
+                    tmp.append(n.right)
+            res.append(vals[::-1] if reverse else vals)
             reverse = not reverse
         return res
