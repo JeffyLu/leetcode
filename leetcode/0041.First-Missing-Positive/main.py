@@ -1,32 +1,18 @@
 class Solution:
 
-    def heapify(self, arr, length, last):
-        smallest = last
-        left = last * 2 + 1
-        right = last * 2 + 2
-        if left < length and arr[left] < arr[smallest]:
-            smallest = left
-        if right < length and arr[right] < arr[smallest]:
-            smallest = right
-        if smallest != last:
-            arr[smallest], arr[last] = arr[last], arr[smallest]
-            self.heapify(arr, length, smallest)
-
     def firstMissingPositive(self, nums):
         length = len(nums)
-        if length <= 1:
-            return 2 if nums and nums[0] == 1 else 1
-        for i in range(int(length/2)-1, -1, -1):
-            self.heapify(nums, length, i)
-        res = 1
-        for i in range(length-1, -1, -1):
-            if nums[0] > res:
+        for i in range(length):
+            j = nums[i] - 1
+            while nums[i] > 0 and j < length and nums[j] != nums[i]:
+                nums[i], nums[j] = nums[j], nums[i]
+                j = nums[i] - 1
+        i = 0
+        while i < length:
+            if nums[i] != i+1:
                 break
-            elif nums[0] == res:
-                res += 1
-            nums[0], nums[i] = nums[i], nums[0]
-            self.heapify(nums, i, 0)
-        return res
+            i += 1
+        return i + 1
 
 
 if __name__ == '__main__':
