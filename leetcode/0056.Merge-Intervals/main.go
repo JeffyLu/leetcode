@@ -81,23 +81,16 @@ func merge(intervals [][]int) [][]int {
 	sort.Sort(I(intervals))
 	var res [][]int
 	for _, i := range intervals {
-		newInterval := true
-		for j := 0; j < len(res); j++ {
-			if i[1] < res[j][0] || i[0] > res[j][1] {
-				continue
-			}
-
-			if i[0] < res[j][0] {
-				res[j][0] = i[0]
-			}
-			if i[1] > res[j][1] {
-				res[j][1] = i[1]
-			}
-			newInterval = false
-			break
-		}
-		if newInterval {
+		last := len(res) - 1
+		if last < 0 || i[0] > res[last][1] {
 			res = append(res, i)
+			continue
+		}
+		if res[last][0] > i[0] {
+			res[last][0] = i[0]
+		}
+		if res[last][1] < i[1] {
+			res[last][1] = i[1]
 		}
 	}
 	return res
