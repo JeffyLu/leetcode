@@ -78,6 +78,7 @@ func main() {
 }
 
 func merge(intervals [][]int) [][]int {
+	sort.Sort(I(intervals))
 	var res [][]int
 	for _, i := range intervals {
 		newInterval := true
@@ -99,8 +100,5 @@ func merge(intervals [][]int) [][]int {
 			res = append(res, i)
 		}
 	}
-	if len(res) == len(intervals) {
-		return res
-	}
-	return merge(res)
+	return res
 }
