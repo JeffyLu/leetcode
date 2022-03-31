@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"math"
 )
 
 func main() {
@@ -46,7 +45,7 @@ func selectNum(nums []string, k int) string {
 	}
 	group := total / len(nums)
 
-	selected := int(math.Ceil(float64(k)/float64(group))) - 1
+	selected := (k - 1) / group
 	var next []string
 	for _, s := range nums {
 		if s != nums[selected] {
