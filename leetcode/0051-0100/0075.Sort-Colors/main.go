@@ -24,16 +24,20 @@ func main() {
 }
 
 func sortColors(nums []int) {
-	var i, j, tmp int
-	for i = 1; i < len(nums); i++ {
-		tmp = nums[i]
-		j = i - 1
-		for ; j >= 0; j-- {
-			if nums[j] <= tmp {
-				break
+	left := 0
+	right := len(nums) - 1
+	for i := 0; i <= right; {
+		if nums[i] == 0 {
+			nums[i], nums[left] = nums[left], nums[i]
+			if i == left {
+				i++
 			}
-			nums[j+1] = nums[j]
+			left++
+		} else if nums[i] == 2 {
+			nums[i], nums[right] = nums[right], nums[i]
+			right--
+		} else {
+			i++
 		}
-		nums[j+1] = tmp
 	}
 }
