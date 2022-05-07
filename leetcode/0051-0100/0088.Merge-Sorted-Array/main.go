@@ -5,16 +5,16 @@ import (
 )
 
 func merge(nums1 []int, m int, nums2 []int, n int) {
-	i := 0
-	for j := 0; j < n; j++ {
-		for i < m && nums1[i] <= nums2[j] {
-			i++
+	last := m + n - 1
+	for j := n - 1; j >= 0; {
+		if m-1 < 0 || nums2[j] > nums1[m-1] {
+			nums1[last] = nums2[j]
+			j--
+		} else {
+			nums1[last] = nums1[m-1]
+			m--
 		}
-		for x := m; x > i; x-- {
-			nums1[x] = nums1[x-1]
-		}
-		nums1[i] = nums2[j]
-		m++
+		last--
 	}
 }
 
