@@ -13,12 +13,7 @@ func numDecodings(s string) int {
 	res := 1
 	for i := 1; i < len(s); i++ {
 		left := s[i-1]
-		if left == '0' {
-			if s[i] == '0' {
-				return 0
-			}
-			a = res
-		} else if left == '1' {
+		if left == '1' {
 			if s[i] == '0' {
 				res = a
 			} else {
